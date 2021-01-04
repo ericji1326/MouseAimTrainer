@@ -1,0 +1,99 @@
+<!doctype html>
+
+<html>
+
+
+    <head>		
+	
+    	<title>Reaction Tester</title>
+		
+		<style type="text/css">
+		
+			#shape {
+				
+				width: 40px;
+				height: 40px;
+				border-radius: 20px;
+				background-color: red;
+				display: none;					/*Change to block for shape to appear*/			
+				position: relative;
+				top:100px;						/*Change randomly for random locations*/
+				left:200px;
+				
+			}
+			
+			body {
+				height:100%;
+				margin:0;
+				padding:0;
+				background-color: #A3BCB6;
+				cursor:crosshair;
+			}
+			
+			html {
+				height: 100%;
+			}
+		</style>
+	
+    </head>
+
+    <body>	/* Try to implement a start button, way to input number of attempts, have targets disappear on its own, change mouse pointer and keep score, difficulty settings (smaller dots, faster etc)*/
+	
+		<h1>Test Your Reactions!</h1>
+		<p>Click on the circles as fast as possible</p>
+		
+	
+		<p>Time Taken: <span id="timeTaken"></span></p>
+	
+		<div id="shape"></div>
+			
+		<script type="text/javascript">												//Begin Javascript
+
+			//Random color generator
+			function getRandomColor() {												//Random color generator
+				var letters = '0123456789ABCDEF';
+				var color = '#';
+					for (var i = 0; i < 6; i++) {
+					color += letters[Math.floor(Math.random() * 16)];
+					}
+				return color;
+			}
+		
+			function makeShapeAppear() {
+				var top = Math.random()*600;
+				var left = Math.random()*1000;
+			
+				document.getElementById("shape").style.backgroundColor = getRandomColor();
+				document.getElementById("shape").style.top = top + "px";
+				document.getElementById("shape").style.left = left + "px";
+				document.getElementById("shape").style.display = "block";			//Change display from none -> block
+
+				start = new Date().getTime();
+			}
+			
+			function appearAfterDelay() {
+				setTimeout(makeShapeAppear, Math.random()*1500);					//Set shape to appear randomly timed
+			}
+			
+			appearAfterDelay();													//Make first shape appear 	
+			var start = new Date().getTime();									//Start counting time
+				
+				
+			document.getElementById("shape").onclick = function() {					//When clicked
+				
+				document.getElementById("shape").style.display = "none";			//Make shape disappear
+				
+				var end = new Date().getTime();
+				var timeElapsed = (end - start)/1000;				
+				
+				document.getElementById("timeTaken").innerHTML = timeElapsed + " s"	//Display time elapsed
+				
+				appearAfterDelay();
+				
+				
+			}
+		</script>
+		
+    </body>
+
+</html>
